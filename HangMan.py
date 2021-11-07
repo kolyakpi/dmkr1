@@ -16,7 +16,7 @@ import string
 from collections import Counter
 
 #Змініть будь ласка репозиторій, в мене тільки так працювало
-WORDLIST_FILENAME = "/home/kolya/Desktop/Studying/Основы программирования/DMKR/words.txt"
+WORDLIST_FILENAME = "words.txt"
 
 
 def load_words():
