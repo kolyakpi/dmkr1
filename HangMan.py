@@ -12,11 +12,10 @@ print("This is hangman game")
 # (so be sure to read the docstrings!)
 import random
 import string
-from collections import Counter
 
 #Змініть будь ласка репозиторій, в мене тільки так працювало
+#WORDLIST_FILENAME = "/home/kolya/Desktop/Studying/Основы программирования/DMKR/words.txt"
 WORDLIST_FILENAME = "words.txt"
-
 
 def load_words():
     """
@@ -72,12 +71,9 @@ def is_word_guessed(secret_word, letters_guessed):
       counter += letters_secret_word.count(i)
 
   if counter == len(letters_secret_word):
-    flag = True
+    return True
   else:
-    flag = False
-
-  return flag
-
+    return False
 
 
 def get_guessed_word(secret_word, letters_guessed):
@@ -204,7 +200,7 @@ def hangman(secret_word):
 
   if win == True:
     print("Congratulations, you won!")
-    print("Your total score for this game is: ", (number_of_guesses*len(Counter(secret_word))))
+    print("Your total score for this game is: ", (number_of_guesses*len(set(word))))
   else:
     print("Sorry, you ran out of guesses. The word was", secret_word)
 
@@ -365,7 +361,7 @@ def hangman_with_hints(secret_word):
 
   if win == True:
     print("Congratulations, you won!")
-    print("Your total score for this game is: ", (number_of_guesses*len(Counter(secret_word))))
+    print("Your total score for this game is: ", (number_of_guesses*len(set(word))))
   else:
     print("Sorry, you ran out of guesses. The word was", secret_word)
 
@@ -385,7 +381,7 @@ if __name__ == "__main__":
     # To test part 2, comment out the pass line above and
     # uncomment the following two lines.
     
-    #secret_word = "apple"#choose_word(wordlist) 
+    secret_word = "apple"#choose_word(wordlist) 
     #hangman(secret_word)
 
 ###############
@@ -394,5 +390,5 @@ if __name__ == "__main__":
     # uncomment the following two lines. 
     
     secret_word = choose_word(wordlist)
-    print('secret_word: ', secret_word)
+    #print('secret_word: ', secret_word)
     hangman_with_hints(secret_word)
