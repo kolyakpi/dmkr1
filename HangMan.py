@@ -71,11 +71,9 @@ def is_word_guessed(secret_word, letters_guessed):
       counter += letters_secret_word.count(i)
 
   if counter == len(letters_secret_word):
-    flag = True
+    return True
   else:
-    flag = False
-
-  return flag
+    return False
 
 
 
@@ -98,7 +96,6 @@ def get_guessed_word(secret_word, letters_guessed):
   return str_result
 
 
-  
 
 
 
@@ -164,7 +161,6 @@ def hangman(secret_word):
   number_of_warnings = 3
   arr_char_guess = []
   while number_of_guesses > 0 and win == False:
-    gueesed = False
     print("You have", number_of_guesses  , "guesses left.")
     print("Available letters: ", get_available_letters(arr_char_guess))
     input_char = input("Please guess a letter: ")
@@ -196,14 +192,13 @@ def hangman(secret_word):
             number_of_guesses -= 1
 
         if is_word_guessed(secret_word, arr_char_guess):
-          gueesed = True
           win = True
 
     print("----------------")
 
   if win == True:
     print("Congratulations, you won!")
-    print("Your total score for this game is: ", (number_of_guesses*len(Counter(secret_word))))
+    print("Your total score for this game is: ", (number_of_guesses*len(set(word))))
   else:
     print("Sorry, you ran out of guesses. The word was", secret_word)
 
@@ -347,7 +342,7 @@ def hangman_with_hints(secret_word):
 
   if win == True:
     print("Congratulations, you won!")
-    print("Your total score for this game is: ", (number_of_guesses*len(Counter(secret_word))))
+    print("Your total score for this game is: ", (number_of_guesses*len(set(word))))
   else:
     print("Sorry, you ran out of guesses. The word was", secret_word)
 
