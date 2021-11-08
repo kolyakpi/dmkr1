@@ -13,9 +13,9 @@ print("This is hangman game")
 import random
 import string
 
-#Змініть будь ласка репозиторій, в мене тільки так працювало
-#WORDLIST_FILENAME = "/home/kolya/Desktop/Studying/Основы программирования/DMKR/words.txt"
 WORDLIST_FILENAME = "words.txt"
+#WORDLIST_FILENAME = "/home/kolya/Desktop/Studying/Основы программирования/DMKR/words.txt"
+
 
 def load_words():
     """
@@ -71,9 +71,12 @@ def is_word_guessed(secret_word, letters_guessed):
       counter += letters_secret_word.count(i)
 
   if counter == len(letters_secret_word):
-    return True
+    flag = True
   else:
-    return False
+    flag = False
+
+  return flag
+
 
 
 def get_guessed_word(secret_word, letters_guessed):
@@ -200,7 +203,7 @@ def hangman(secret_word):
 
   if win == True:
     print("Congratulations, you won!")
-    print("Your total score for this game is: ", (number_of_guesses*len(set(word))))
+    print("Your total score for this game is: ", (number_of_guesses*len(Counter(secret_word))))
   else:
     print("Sorry, you ran out of guesses. The word was", secret_word)
 
@@ -214,44 +217,27 @@ def hangman(secret_word):
 # -----------------------------------
 
 
-
 def match_with_gaps(my_word, other_word):
-  '''
+    '''
     my_word: string with _ characters, current guess of secret word
     other_word: string, regular English word
     returns: boolean, True if all the actual letters of my_word match the 
         corresponding letters of other_word, or the letter is the special symbol
         _ , and my_word and other_word are of the same length;
         False otherwise: 
-  '''
-  my_word = str(my_word)
-  flag = False
+    '''
+    my_word = my_word.replace(' ', '')
+    if len(my_word) != len(other_word):
+        return False
 
-  length = 0
-  txt = ''
-  for i in my_word:
-    if i != " ":
-      length += 1
-      txt += i
-
-      arr = []
-            
-    if length != len(other_word):
-      flag = False
-    else:
-      j = 0
-      flag = True
-      for i in other_word:
-        if txt[j] != "_":
-          if i != txt[j]:
-            flag = False
-            break
+    for i in range(len(my_word)):
+        if my_word[i] != "_":
+            if my_word[i] != other_word[i]:
+                return False
         else:
-            if i in list(txt):
-              flag = False
-        j += 1
-
-  return flag
+            if other_word[i] in my_word: 
+                return False
+    return True
 
 
 def show_possible_matches(my_word):
@@ -361,7 +347,7 @@ def hangman_with_hints(secret_word):
 
   if win == True:
     print("Congratulations, you won!")
-    print("Your total score for this game is: ", (number_of_guesses*len(set(word))))
+    print("Your total score for this game is: ", (number_of_guesses*len(Counter(secret_word))))
   else:
     print("Sorry, you ran out of guesses. The word was", secret_word)
 
@@ -381,14 +367,14 @@ if __name__ == "__main__":
     # To test part 2, comment out the pass line above and
     # uncomment the following two lines.
     
-    secret_word = "apple"#choose_word(wordlist) 
+    #secret_word = "apple"#choose_word(wordlist) 
     #hangman(secret_word)
 
 ###############
     
     # To test part 3 re-comment out the above lines and 
     # uncomment the following two lines. 
-    
     secret_word = choose_word(wordlist)
+    #print("secret_word: ", secret_word)
     #print('secret_word: ', secret_word)
     hangman_with_hints(secret_word)
