@@ -13,8 +13,8 @@ print("This is hangman game")
 import random
 import string
 
-WORDLIST_FILENAME = "words.txt"
-#WORDLIST_FILENAME = "/home/kolya/Desktop/Studying/Основы программирования/DMKR/words.txt"
+#WORDLIST_FILENAME = "words.txt"
+WORDLIST_FILENAME = "/home/kolya/Desktop/Studying/Основы программирования/DMKR/words.txt"
 
 
 def load_words():
@@ -31,7 +31,7 @@ def load_words():
     line = inFile.readline()
     # wordlist: list of strings
     wordlist = line.split()
-    print("  ", len(wordlist), "words loaded.")
+    print("{0} words loaded.".format(len(wordlist)))
     return wordlist
 
 
@@ -117,14 +117,14 @@ def get_available_letters(letters_guessed):
 def info(case, word, number_of_warnings):
   if number_of_warnings >= 0:
     if case == 0:
-      print("Oops! That is not a valid letter. You now have", number_of_warnings,"warnings left:", word)
+      print("Oops! That is not a valid letter. You now have {0} warnings left: {1}".format(number_of_warnings, word))
     else:
-      print("Oops! You've already guessed that letter. You now have", number_of_warnings,"warnings left:", word)
+      print("Oops! You've already guessed that letter. You now have {0} warnings left: {1}".format(number_of_warnings, word))
   else:
     if case == 0:
-      print("Oops! That is not a valid letter. You have no warnings left so you lose one guess:", word)
+      print("Oops! That is not a valid letter. You have no warnings left so you lose one guess: {0}".format(word))
     else:
-      print("Oops! You've already guessed that letter. You have no warnings left so you lose one guess:", word)
+      print("Oops! You've already guessed that letter. You have no warnings left so you lose one guess: {0}".format(word))
     
 
 def hangman(secret_word):
@@ -153,7 +153,7 @@ def hangman(secret_word):
   # FILL IN YOUR CODE HERE AND DELETE "pass"
 
   print("Welcome to the game Hangman!")
-  print("I am thinking of a word that is", len(secret_word), "letters long.")
+  print("I am thinking of a word that is {0} letters long.".format(len(secret_word)))
   print("You have 3 warnings left.")
   print("----------------")
   win = False
@@ -161,8 +161,8 @@ def hangman(secret_word):
   number_of_warnings = 3
   arr_char_guess = []
   while number_of_guesses > 0 and win == False:
-    print("You have", number_of_guesses  , "guesses left.")
-    print("Available letters: ", get_available_letters(arr_char_guess))
+    print("You have {0} guesses left.".format(number_of_guesses))
+    print("Available letters: {0}".format(get_available_letters(arr_char_guess)))
     input_char = input("Please guess a letter: ")
     input_char = input_char.lower()
     word = get_guessed_word(secret_word, arr_char_guess)
@@ -182,10 +182,10 @@ def hangman(secret_word):
         arr_char_guess.append(input_char)
         word = get_guessed_word(secret_word, arr_char_guess)
         if input_char in secret_word:
-          print("Good guess: ", word)
+          print("Good guess: {0}".format(word))
         else:
           golos = ["a", "e", "i", "o", "u"]
-          print("Oops! That letter is not in my word:", word)
+          print("Oops! That letter is not in my word: {0}".format(word))
           if input_char in golos:
             number_of_guesses -= 2
           else:
@@ -198,9 +198,9 @@ def hangman(secret_word):
 
   if win == True:
     print("Congratulations, you won!")
-    print("Your total score for this game is: ", (number_of_guesses*len(set(word))))
+    print("Your total score for this game is: {0}".format((number_of_guesses*len(set(word)))))
   else:
-    print("Sorry, you ran out of guesses. The word was", secret_word)
+    print("Sorry, you ran out of guesses. The word was {0}".format(secret_word))
 
 
 # When you've completed your hangman function, scroll down to the bottom
@@ -288,7 +288,7 @@ def hangman_with_hints(secret_word):
   '''
 
   print("Welcome to the game Hangman!")
-  print("I am thinking of a word that is", len(secret_word), "letters long.")
+  print("I am thinking of a word that is {0} letters long.".format(len(secret_word)))
   print("You have 3 warnings left.")
   print("----------------")
   win = False
@@ -296,16 +296,16 @@ def hangman_with_hints(secret_word):
   number_of_warnings = 3
   arr_char_guess = []
   while number_of_guesses > 0 and win == False:
-    print("You have", number_of_guesses  , "guesses left.")
-    print("Available letters: ", get_available_letters(arr_char_guess))
+    print("You have {0} guesses left.".format(number_of_guesses))
+    print("Available letters: {0}".format(get_available_letters(arr_char_guess)))
     input_char = input("Please guess a letter: ")
     input_char = input_char.lower()
     word = get_guessed_word(secret_word, arr_char_guess)
 
     if input_char == "*":
-      print("word: ", word)
+      print("word: {}".format(word))
       print("Possible word matches are: ")
-      matches = show_possible_matches(word)
+      show_possible_matches(word)
     else:
       if input_char.isalpha() == False or len(input_char) > 1:
         number_of_warnings -= 1
@@ -326,10 +326,10 @@ def hangman_with_hints(secret_word):
           arr_char_guess.append(input_char)
           word = get_guessed_word(secret_word, arr_char_guess)
           if input_char in secret_word:
-            print("Good guess: ", word)
+            print("Good guess: {0}".format(word))
           else:
             golos = ["a", "e", "i", "o", "u"]
-            print("Oops! That letter is not in my word:", word)
+            print("Oops! That letter is not in my word:{0}".format(word))
             if input_char in golos:
               number_of_guesses -= 2
             else:
@@ -342,9 +342,9 @@ def hangman_with_hints(secret_word):
 
   if win == True:
     print("Congratulations, you won!")
-    print("Your total score for this game is: ", (number_of_guesses*len(set(word))))
+    print("Your total score for this game is: {0}".format((number_of_guesses*len(set(word)))))
   else:
-    print("Sorry, you ran out of guesses. The word was", secret_word)
+    print("Sorry, you ran out of guesses. The word was {0}".format(secret_word))
 
 
     
